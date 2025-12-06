@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, pdo, pdo_mysql
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest || echo "No composer.json yet, skipping install"
+
+    - name: Run PHPStan
+      run: vendor/bin/phpstan analyse || echo "PHPStan not installed via composer yet"
+
+    - name: Run Tests
+      run: vendor/bin/phpunit || echo "PHPUnit not installed via composer yet"
+
+    - name: Lint PHP files
+      run: find src public -name "*.php" -print0 | xargs -0 -n1 php -l

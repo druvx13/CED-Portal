@@ -1,17 +1,12 @@
-php_value display_errors On
-php_value mbstring.http_input auto
-php_value date.timezone Asia/Calcutta
-# .htaccess in portal root
+
+# htdocs/.htaccess
+
 RewriteEngine On
-# If your portal is at domain root, keep this:
-RewriteBase /
-# If it's in a subfolder (e.g. https://example.com/portal/),
-# change to:
-# RewriteBase /portal/
-# Serve existing files and directories directly
-RewriteCond %{REQUEST_FILENAME} -f [OR]
-RewriteCond %{REQUEST_FILENAME} -d
-RewriteRule ^ - [L]
-# Send everything else (like /login, /dashboard, /lab-programs)
-# to index.php for routing
-RewriteRule ^ index.php [L]
+
+# Redirect root to /public/
+RewriteRule ^$ public/ [L]
+
+# Rewrite all other requests to public/ if the file doesn't exist in htdocs root
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ public/$1 [L]
