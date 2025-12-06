@@ -66,7 +66,8 @@ We recommend transitioning to a structured MVC framework.
 ### Phase 1: Preparation
 1.  Set up the directory structure.
 2.  Move `assets` to `public/assets`.
-3.  Create a basic `public/index.php` and `.htaccess` to handle routing.
+3.  Move `uploads` to `public/uploads`.
+4.  Create a basic `public/index.php` and `.htaccess` to handle routing.
 
 ### Phase 2: Core Components
 1.  Implement a simple **Autoloader** (or use Composer).
