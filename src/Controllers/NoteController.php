@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Core\View;
 use App\Core\Auth;
+use App\Core\View;
 use App\Utils\Helper;
 use App\Models\Note;
 
@@ -13,15 +13,18 @@ class NoteController {
         $user = Auth::user();
 
         $errors = [];
-        $title = '';
-        $body = '';
+        $title = $body = '';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $title = trim($_POST['title'] ?? '');
-            $body = trim($_POST['body'] ?? '');
+            $body  = trim($_POST['body'] ?? '');
 
-            if ($title === '') $errors[] = "Title is required.";
-            if ($body === '') $errors[] = "Body is required.";
+            if ($title === '') {
+                $errors[] = "Title is required.";
+            }
+            if ($body === '') {
+                $errors[] = "Body is required.";
+            }
 
             if (!$errors) {
                 Note::create($user['id'], $title, $body);
@@ -29,14 +32,15 @@ class NoteController {
             }
         }
 
-        $notes = Note::getAllForUser($user['id']);
+        $notes = Note::allForUser($user['id']);
 
-        $view = new View();
-        $view->render('notes/index', [
+        View::render('notes/index', [
+            'notes' => $notes,
             'errors' => $errors,
-            'title' => $title,
-            'body' => $body,
-            'notes' => $notes
-        ], 'Notes');
+            'title_val' => $title,
+            'body_val' => $body,
+            'user' => $user,
+            'title' => 'Notes'
+        ]);
     }
 }

@@ -1,15 +1,6 @@
-# Dependencies
-/vendor
-composer.lock
-
-# Environment
+vendor/
+node_modules/
 .env
-
-# Uploads
-/public/uploads/*
-!/public/uploads/.gitkeep
-
-# IDEs
-.idea
-.vscode
-*.swp
+*.log
+.DS_Store
+public/uploads/

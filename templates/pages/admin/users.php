@@ -5,17 +5,17 @@
         <div class="alert alert--error">
             <ul>
                 <?php foreach ($errors as $e): ?>
-                    <li><?= \App\Core\View::h($e) ?></li>
+                    <li><?= \App\Utils\Helper::h($e) ?></li>
                 <?php endforeach; ?>
             </ul>
         </div>
     <?php endif; ?>
 
     <?php if ($success): ?>
-        <p class="notice"><?= \App\Core\View::h($success) ?></p>
+        <p class="notice"><?= \App\Utils\Helper::h($success) ?></p>
     <?php endif; ?>
 
-    <?php if ((int)$currentUser['id'] === 1 && $currentUser['is_first_admin']): ?>
+    <?php if ((int)$user['id'] === 1 && $user['is_first_admin']): ?>
         <h2>Create user</h2>
         <form method="post" class="form">
             <label>
@@ -51,10 +51,10 @@
         <?php foreach ($users as $u): ?>
             <tr>
                 <td><?= (int)$u['id'] ?></td>
-                <td><?= \App\Core\View::h($u['username']) ?></td>
+                <td><?= \App\Utils\Helper::h($u['username']) ?></td>
                 <td><?= $u['is_admin'] ? 'Yes' : 'No' ?></td>
                 <td><?= $u['is_first_admin'] ? 'Yes' : 'No' ?></td>
-                <td><?= \App\Core\View::h($u['created_at']) ?></td>
+                <td><?= \App\Utils\Helper::h($u['created_at']) ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>

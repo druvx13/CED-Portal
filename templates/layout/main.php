@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><?= \App\Core\View::h($title) ?> - CED Portal</title>
+    <title><?= \App\Utils\Helper::h($title ?? 'CED Portal') ?> - CED Portal</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="<?= BASE_URL ?>/assets/style.css">
     <!-- Highlight.js -->
@@ -21,11 +21,10 @@
             <a href="<?= BASE_URL ?>/manuals">Lab Manuals</a>
             <a href="<?= BASE_URL ?>/homework">Homework</a>
             <a href="<?= BASE_URL ?>/users">Users</a>
-            <?php $currentUser = \App\Core\Auth::user(); ?>
-            <?php if ($currentUser): ?>
+            <?php if ($user ?? null): ?>
                 <a href="<?= BASE_URL ?>/reminders">Reminders</a>
                 <a href="<?= BASE_URL ?>/notes">Notes</a>
-                <?php if ($currentUser['is_admin']): ?>
+                <?php if ($user['is_admin']): ?>
                     <a href="<?= BASE_URL ?>/admin/users">Admin</a>
                     <a href="<?= BASE_URL ?>/admin/languages">Languages</a>
                     <a href="<?= BASE_URL ?>/admin/subjects">Subjects</a>
@@ -34,9 +33,9 @@
         </nav>
 
         <div class="auth">
-            <?php if ($currentUser): ?>
+            <?php if ($user ?? null): ?>
                 <span class="auth__user">
-                    <?= \App\Core\View::h($currentUser['username']) ?><?= $currentUser['is_admin'] ? ' (admin)' : '' ?>
+                    <?= \App\Utils\Helper::h($user['username']) ?><?= $user['is_admin'] ? ' (admin)' : '' ?>
                 </span>
                 <form method="post" action="<?= BASE_URL ?>/logout" class="auth__form">
                     <button type="submit">Logout</button>
@@ -48,3 +47,21 @@
     </div>
 </header>
 <main class="site-main">
+    <?= $content ?>
+</main>
+<footer class="site-footer">
+    <p>
+  <strong>Disclaimer:</strong> I, <strong style="color: #FF0000;">Nikol</strong>, am a Diploma student in Computer Engineering. The content I share originates from materials accessible through my academic program and represents my coursework, projects, or personal study—shared strictly for educational purposes.
+	</p>
+
+	<center><p>
+  <img src="https://nikol.22web.org/img/members/2/mini_cooltext497354994916342.png" alt="Nikol Logo">
+	</p>
+
+	<p>
+  All content herein has been uploaded by <strong style="color: #FF0000;">NIKOL</strong>.
+	</p></center>
+</footer>
+<script src="<?= BASE_URL ?>/assets/app.js"></script>
+</body>
+</html>

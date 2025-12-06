@@ -1,6 +1,6 @@
 <section class="page">
     <h1>Homework</h1>
-    <?php if ($currentUser && $currentUser['is_admin']): ?>
+    <?php if ($user && $user['is_admin']): ?>
         <p><a class="btn btn--small" href="<?= BASE_URL ?>/homework/new">Create homework</a></p>
     <?php else: ?>
         <p class="muted">Homework questions are visible to everyone. Only staff can post new ones.</p>
@@ -11,7 +11,7 @@
     <?php else: ?>
         <?php foreach ($grouped as $subject => $items): ?>
             <section class="card">
-                <h2><?= \App\Core\View::h($subject) ?></h2>
+                <h2><?= \App\Utils\Helper::h($subject) ?></h2>
                 <table class="changes-table">
                     <thead>
                         <tr>
@@ -19,7 +19,7 @@
                             <th>Due date</th>
                             <th>Question</th>
                             <th>Answer</th>
-                            <?php if ($currentUser): ?>
+                            <?php if ($user): ?>
                                 <th>Actions</th>
                             <?php endif; ?>
                         </tr>
@@ -27,21 +27,21 @@
                     <tbody>
                     <?php foreach ($items as $hw): ?>
                         <tr>
-                            <td><?= \App\Core\View::h($hw['title']) ?></td>
-                            <td><?= \App\Core\View::h($hw['due_date'] ?? '—') ?></td>
-                            <td><?= nl2br(\App\Core\View::h(mb_strimwidth($hw['question'], 0, 160, '…', 'UTF-8'))) ?></td>
+                            <td><?= \App\Utils\Helper::h($hw['title']) ?></td>
+                            <td><?= \App\Utils\Helper::h($hw['due_date'] ?? '—') ?></td>
+                            <td><?= nl2br(\App\Utils\Helper::h(mb_strimwidth($hw['question'], 0, 160, '…', 'UTF-8'))) ?></td>
                             <td>
                                 <?php if ($hw['answer_path'] && (!$hw['due_date'] || $hw['due_date'] <= date('Y-m-d H:i:s'))): ?>
-                                    <a href="<?= \App\Core\View::h($hw['answer_path']) ?>" target="_blank">Download</a>
+                                    <a href="<?= \App\Utils\Helper::h($hw['answer_path']) ?>" target="_blank">Download</a>
                                 <?php elseif ($hw['answer_path']): ?>
                                     <span class="muted">Locked until due date</span>
                                 <?php else: ?>
                                     <span class="muted">Not available</span>
                                 <?php endif; ?>
                             </td>
-                            <?php if ($currentUser): ?>
+                            <?php if ($user): ?>
                                 <td>
-                                    <?php if ($currentUser['is_admin'] || (int)$currentUser['id'] === (int)$hw['uploaded_by']): ?>
+                                    <?php if ($user['is_admin'] || (int)$user['id'] === (int)$hw['uploaded_by']): ?>
                                         <a href="<?= BASE_URL ?>/homework/edit?id=<?= (int)$hw['id'] ?>">Edit</a>
                                         <form method="post" action="<?= BASE_URL ?>/homework/delete" class="inline-form" style="display:inline;" onsubmit="return confirm('Delete this homework?');">
                                             <input type="hidden" name="id" value="<?= (int)$hw['id'] ?>">

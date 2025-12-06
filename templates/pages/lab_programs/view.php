@@ -1,17 +1,17 @@
 <section class="page">
-    <h1><?= \App\Core\View::h($p['title']) ?></h1>
+    <h1><?= \App\Utils\Helper::h($program['title']) ?></h1>
     <p class="muted">
-        Language: <?= \App\Core\View::h($p['language_name']) ?> |
-        By: <?= \App\Core\View::h($p['username'] ?? 'Unknown') ?> |
-        <?= \App\Core\View::h($p['created_at']) ?>
+        Language: <?= \App\Utils\Helper::h($program['language_name']) ?> |
+        By: <?= \App\Utils\Helper::h($program['username'] ?? 'Unknown') ?> |
+        <?= \App\Utils\Helper::h($program['created_at']) ?>
     </p>
 
-    <?php if ($currentUser && ($currentUser['is_admin'] || (int)$currentUser['id'] === (int)$p['uploaded_by'])): ?>
+    <?php if ($user && ($user['is_admin'] || (int)$user['id'] === (int)$program['uploaded_by'])): ?>
         <p>
-            <a href="<?= BASE_URL ?>/lab-programs/edit?id=<?= (int)$p['id'] ?>">Edit</a>
+            <a href="<?= BASE_URL ?>/lab-programs/edit?id=<?= (int)$program['id'] ?>">Edit</a>
             |
             <form method="post" action="<?= BASE_URL ?>/lab-programs/delete" class="inline-form" style="display:inline;" onsubmit="return confirm('Delete this program?');">
-                <input type="hidden" name="id" value="<?= (int)$p['id'] ?>">
+                <input type="hidden" name="id" value="<?= (int)$program['id'] ?>">
                 <button type="submit">Delete</button>
             </form>
         </p>
@@ -20,17 +20,17 @@
     <div class="lab-program-layout">
         <div class="lab-program-code">
             <h2>Code</h2>
-            <pre><code class="hljs language-<?= \App\Core\View::h($p['language_slug']) ?>"><?= \App\Core\View::h($p['code']) ?></code></pre>
+            <pre><code class="hljs language-<?= \App\Utils\Helper::h($program['language_slug']) ?>"><?= \App\Utils\Helper::h($program['code']) ?></code></pre>
         </div>
         <div class="lab-program-output">
             <h2>Output</h2>
-            <?php if ($p['output_path']): ?>
-                <?php if (str_ends_with(strtolower($p['output_path']), '.pdf')): ?>
-                    <iframe src="<?= \App\Core\View::h($p['output_path']) ?>" class="pdf-frame"></iframe>
+            <?php if ($program['output_path']): ?>
+                <?php if (str_ends_with(strtolower($program['output_path']), '.pdf')): ?>
+                    <iframe src="<?= \App\Utils\Helper::h($program['output_path']) ?>" class="pdf-frame"></iframe>
                 <?php else: ?>
-                    <img src="<?= \App\Core\View::h($p['output_path']) ?>" alt="Program output" class="output-preview">
+                    <img src="<?= \App\Utils\Helper::h($program['output_path']) ?>" alt="Program output" class="output-preview">
                 <?php endif; ?>
-                <p><a href="<?= \App\Core\View::h($p['output_path']) ?>" target="_blank">Download output</a></p>
+                <p><a href="<?= \App\Utils\Helper::h($program['output_path']) ?>" target="_blank">Download output</a></p>
             <?php else: ?>
                 <p class="muted">No output uploaded.</p>
             <?php endif; ?>

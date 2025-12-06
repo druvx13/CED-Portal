@@ -14,9 +14,9 @@
             <tbody>
                 <?php foreach ($users as $u): ?>
                     <tr>
-                        <td><?= \App\Core\View::h($u['username']) ?></td>
+                        <td><?= \App\Utils\Helper::h($u['username']) ?></td>
                         <td><?= $u['is_admin'] ? 'Admin' : 'User' ?></td>
-                        <td><?= \App\Core\View::h($u['created_at']) ?></td>
+                        <td><?= \App\Utils\Helper::h($u['created_at']) ?></td>
                         <td>
                             <a href="<?= BASE_URL ?>/users/posts?id=<?= (int)$u['id'] ?>">View posts</a>
                         </td>

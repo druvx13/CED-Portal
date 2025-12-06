@@ -1,6 +1,6 @@
 <section class="page">
     <h1>Lab Programs</h1>
-    <?php if ($currentUser): ?>
+    <?php if ($user): ?>
         <p><a class="btn btn--small" href="<?= BASE_URL ?>/lab-programs/new">Upload new program</a></p>
     <?php else: ?>
         <p class="muted">Login to upload new programs. Existing ones are visible to everyone.</p>
@@ -11,19 +11,19 @@
     <?php else: ?>
         <?php foreach ($grouped as $language => $programs): ?>
             <section class="card">
-                <h2><?= \App\Core\View::h($language) ?></h2>
+                <h2><?= \App\Utils\Helper::h($language) ?></h2>
                 <ul>
                     <?php foreach ($programs as $p): ?>
                         <li>
                             <strong>
                                 <a href="<?= BASE_URL ?>/lab-programs/view?id=<?= (int)$p['id'] ?>">
-                                    <?= \App\Core\View::h($p['title']) ?>
+                                    <?= \App\Utils\Helper::h($p['title']) ?>
                                 </a>
                             </strong>
                             <span class="muted">
-                                by <?= \App\Core\View::h($p['username'] ?? 'Unknown') ?> · <?= \App\Core\View::h($p['created_at']) ?>
+                                by <?= \App\Utils\Helper::h($p['username'] ?? 'Unknown') ?> · <?= \App\Utils\Helper::h($p['created_at']) ?>
                             </span>
-                            <?php if ($currentUser && ($currentUser['is_admin'] || (int)$currentUser['id'] === (int)$p['uploaded_by'])): ?>
+                            <?php if ($user && ($user['is_admin'] || (int)$user['id'] === (int)$p['uploaded_by'])): ?>
                                 <span>
                                     |
                                     <a href="<?= BASE_URL ?>/lab-programs/edit?id=<?= (int)$p['id'] ?>">Edit</a>
@@ -35,7 +35,7 @@
                             <?php endif; ?>
                             <details>
                                 <summary>Code preview</summary>
-                                <pre><code class="hljs language-<?= \App\Core\View::h($p['language_slug']) ?>"><?= \App\Core\View::h(mb_strimwidth($p['code'], 0, 500, "\n…", 'UTF-8')) ?></code></pre>
+                                <pre><code class="hljs language-<?= \App\Utils\Helper::h($p['language_slug']) ?>"><?= \App\Utils\Helper::h(mb_strimwidth($p['code'], 0, 500, "\n…", 'UTF-8')) ?></code></pre>
                             </details>
                         </li>
                     <?php endforeach; ?>

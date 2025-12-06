@@ -5,7 +5,7 @@
         <div class="alert alert--error">
             <ul>
                 <?php foreach ($errors as $e): ?>
-                    <li><?= \App\Core\View::h($e) ?></li>
+                    <li><?= \App\Utils\Helper::h($e) ?></li>
                 <?php endforeach; ?>
             </ul>
         </div>
@@ -14,11 +14,11 @@
     <form method="post" class="form">
         <label>
             Title
-            <input type="text" name="title" required value="<?= \App\Core\View::h($title) ?>">
+            <input type="text" name="title" required value="<?= \App\Utils\Helper::h($title_val) ?>">
         </label>
         <label>
             Body
-            <textarea name="body" rows="6" required><?= \App\Core\View::h($body) ?></textarea>
+            <textarea name="body" rows="6" required><?= \App\Utils\Helper::h($body_val) ?></textarea>
         </label>
         <button type="submit">Add note</button>
     </form>
@@ -28,9 +28,9 @@
         <ul class="notes-list">
             <?php foreach ($notes as $n): ?>
                 <li>
-                    <h3><?= \App\Core\View::h($n['title']) ?></h3>
-                    <div class="muted"><?= \App\Core\View::h($n['created_at']) ?></div>
-                    <p><?= nl2br(\App\Core\View::h($n['body'])) ?></p>
+                    <h3><?= \App\Utils\Helper::h($n['title']) ?></h3>
+                    <div class="muted"><?= \App\Utils\Helper::h($n['created_at']) ?></div>
+                    <p><?= nl2br(\App\Utils\Helper::h($n['body'])) ?></p>
                 </li>
             <?php endforeach; ?>
         </ul>

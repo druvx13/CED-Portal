@@ -5,17 +5,17 @@
         <div class="alert alert--error">
             <ul>
                 <?php foreach ($errors as $e): ?>
-                    <li><?= \App\Core\View::h($e) ?></li>
+                    <li><?= \App\Utils\Helper::h($e) ?></li>
                 <?php endforeach; ?>
             </ul>
         </div>
     <?php endif; ?>
 
     <form method="post" class="form" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?= (int)$id ?>">
+        <input type="hidden" name="id" value="<?= (int)$manual['id'] ?>">
         <label>
             Title
-            <input type="text" name="title" required value="<?= \App\Core\View::h($title) ?>">
+            <input type="text" name="title" required value="<?= \App\Utils\Helper::h($title_val) ?>">
         </label>
         <label>
             Replace PDF (optional)

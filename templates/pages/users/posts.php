@@ -1,7 +1,5 @@
 <section class="page">
-    <h1>Posts by <?= \App\Core\View::h($user['username']) ?> <?= $user['is_admin'] ? '(Admin)' : '' ?></h1>
-
-    <?php $base = BASE_URL . '/users/posts?id=' . $user['id']; ?>
+    <h1>Posts by <?= \App\Utils\Helper::h($targetUser['username']) ?> <?= $targetUser['is_admin'] ? '(Admin)' : '' ?></h1>
 
     <section class="user-post-section">
         <h2>Lab Programs</h2>
@@ -10,16 +8,17 @@
                 <?php foreach ($userPrograms as $p): ?>
                     <li>
                         <a href="<?= BASE_URL ?>/lab-programs/view?id=<?= (int)$p['id'] ?>">
-                            <?= \App\Core\View::h($p['title']) ?>
+                            <?= \App\Utils\Helper::h($p['title']) ?>
                         </a>
                         <span class="muted">
-                            (<?= \App\Core\View::h($p['language_name']) ?>,
-                            <?= \App\Core\View::h($p['created_at']) ?>)
+                            (<?= \App\Utils\Helper::h($p['language_name']) ?>,
+                            <?= \App\Utils\Helper::h($p['created_at']) ?>)
                         </span>
                     </li>
                 <?php endforeach; ?>
             </ul>
             <?php if ($totPagesProg > 1): ?>
+                <?php $base = BASE_URL . '/users/posts?id=' . $targetUser['id']; ?>
                 <nav class="pagination">
                     <?php if ($pageProg > 1): ?>
                         <a href="<?= $base ?>&page_prog=<?= $pageProg - 1 ?>&page_manual=<?= $pageMan ?>&page_hw=<?= $pageHw ?>">&laquo; Prev</a>
@@ -41,14 +40,15 @@
             <ul>
                 <?php foreach ($userManuals as $m): ?>
                     <li>
-                        <a href="<?= \App\Core\View::h($m['pdf_path']) ?>" target="_blank">
-                            <?= \App\Core\View::h($m['title']) ?>
+                        <a href="<?= \App\Utils\Helper::h($m['pdf_path']) ?>" target="_blank">
+                            <?= \App\Utils\Helper::h($m['title']) ?>
                         </a>
-                        <span class="muted">(<?= \App\Core\View::h($m['created_at']) ?>)</span>
+                        <span class="muted">(<?= \App\Utils\Helper::h($m['created_at']) ?>)</span>
                     </li>
                 <?php endforeach; ?>
             </ul>
             <?php if ($totPagesMan > 1): ?>
+                <?php $base = BASE_URL . '/users/posts?id=' . $targetUser['id']; ?>
                 <nav class="pagination">
                     <?php if ($pageMan > 1): ?>
                         <a href="<?= $base ?>&page_prog=<?= $pageProg ?>&page_manual=<?= $pageMan - 1 ?>&page_hw=<?= $pageHw ?>">&laquo; Prev</a>
@@ -70,16 +70,17 @@
             <ul>
                 <?php foreach ($userHomework as $h): ?>
                     <li>
-                        <?= \App\Core\View::h($h['title']) ?>
+                        <?= \App\Utils\Helper::h($h['title']) ?>
                         <span class="muted">
-                            (subject <?= \App\Core\View::h($h['subject_name']) ?>,
-                            due <?= \App\Core\View::h($h['due_date'] ?? '—') ?>,
-                            created <?= \App\Core\View::h($h['created_at']) ?>)
+                            (subject <?= \App\Utils\Helper::h($h['subject_name']) ?>,
+                            due <?= \App\Utils\Helper::h($h['due_date'] ?? '—') ?>,
+                            created <?= \App\Utils\Helper::h($h['created_at']) ?>)
                         </span>
                     </li>
                 <?php endforeach; ?>
             </ul>
             <?php if ($totPagesHw > 1): ?>
+                <?php $base = BASE_URL . '/users/posts?id=' . $targetUser['id']; ?>
                 <nav class="pagination">
                     <?php if ($pageHw > 1): ?>
                         <a href="<?= $base ?>&page_prog=<?= $pageProg ?>&page_manual=<?= $pageMan ?>&page_hw=<?= $pageHw - 1 ?>">&laquo; Prev</a>

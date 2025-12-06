@@ -2,29 +2,40 @@
 
 namespace App\Core;
 
+use App\Config\Config;
+
 class View {
-    public function render(string $viewPath, array $data = [], string $title = 'CED Portal'): void {
+    public static function render(string $view, array $data = []): void {
         extract($data);
 
-        // Define BASE_URL for views if not defined (though it should be in env)
+        // Define BASE_URL for views
         if (!defined('BASE_URL')) {
-            define('BASE_URL', getenv('BASE_URL') ?: '');
+            define('BASE_URL', Config::get('BASE_URL', ''));
         }
 
-        $contentView = __DIR__ . '/../../templates/pages/' . $viewPath . '.php';
+        $viewFile = __DIR__ . '/../../templates/pages/' . $view . '.php';
 
-        require_once __DIR__ . '/../../templates/layout/header.php';
+        if (file_exists($viewFile)) {
+            // Buffer the output
+            ob_start();
+            require $viewFile;
+            $content = ob_get_clean();
 
-        if (file_exists($contentView)) {
-            require_once $contentView;
+            // Render the layout
+            require __DIR__ . '/../../templates/layout/main.php';
         } else {
-            echo "<p>View file not found: " . htmlspecialchars($viewPath) . "</p>";
+            throw new \Exception("View $view not found.");
         }
-
-        require_once __DIR__ . '/../../templates/layout/footer.php';
     }
 
-    public static function h(string $v): string {
-        return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    public static function renderPartial(string $view, array $data = []): void {
+         extract($data);
+         if (!defined('BASE_URL')) {
+            define('BASE_URL', Config::get('BASE_URL', ''));
+        }
+        $viewFile = __DIR__ . '/../../templates/' . $view . '.php';
+        if (file_exists($viewFile)) {
+            require $viewFile;
+        }
     }
 }

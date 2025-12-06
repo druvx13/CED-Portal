@@ -5,7 +5,7 @@
         <div class="alert alert--error">
             <ul>
                 <?php foreach ($errors as $e): ?>
-                    <li><?= \App\Core\View::h($e) ?></li>
+                    <li><?= \App\Utils\Helper::h($e) ?></li>
                 <?php endforeach; ?>
             </ul>
         </div>
@@ -14,11 +14,11 @@
     <form method="post" class="form">
         <label>
             Message
-            <input type="text" name="message" required value="<?= \App\Core\View::h($message) ?>">
+            <input type="text" name="message" required value="<?= \App\Utils\Helper::h($message_val) ?>">
         </label>
         <label>
             Due date
-            <input type="datetime-local" name="due_date" required value="<?= \App\Core\View::h($due_date) ?>">
+            <input type="datetime-local" name="due_date" required value="<?= \App\Utils\Helper::h($due_date_val) ?>">
         </label>
         <button type="submit">Add reminder</button>
     </form>
@@ -28,8 +28,8 @@
         <ul class="reminder-list reminder-list--full">
             <?php foreach ($reminders as $r): ?>
                 <li>
-                    <div class="reminder-msg"><?= \App\Core\View::h($r['message']) ?></div>
-                    <div class="reminder-date"><?= \App\Core\View::h($r['due_date']) ?></div>
+                    <div class="reminder-msg"><?= \App\Utils\Helper::h($r['message']) ?></div>
+                    <div class="reminder-date"><?= \App\Utils\Helper::h($r['due_date']) ?></div>
                 </li>
             <?php endforeach; ?>
         </ul>

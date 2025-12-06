@@ -1,6 +1,6 @@
 <section class="page">
     <h1>Lab Manuals</h1>
-    <?php if ($currentUser): ?>
+    <?php if ($user): ?>
         <p><a class="btn btn--small" href="<?= BASE_URL ?>/manuals/new">Upload manual</a></p>
     <?php else: ?>
         <p class="muted">Login to upload manuals. Everyone can download them.</p>
@@ -10,14 +10,14 @@
         <ul class="manual-list">
             <?php foreach ($manuals as $m): ?>
                 <li>
-                    <a href="<?= \App\Core\View::h($m['pdf_path']) ?>" target="_blank">
-                        <?= \App\Core\View::h($m['title']) ?>
+                    <a href="<?= \App\Utils\Helper::h($m['pdf_path']) ?>" target="_blank">
+                        <?= \App\Utils\Helper::h($m['title']) ?>
                     </a>
                     <span class="muted">
-                        (<?= \App\Core\View::h($m['created_at']) ?>,
-                        by <?= \App\Core\View::h($m['username'] ?? 'Unknown') ?>)
+                        (<?= \App\Utils\Helper::h($m['created_at']) ?>,
+                        by <?= \App\Utils\Helper::h($m['username'] ?? 'Unknown') ?>)
                     </span>
-                    <?php if ($currentUser && ($currentUser['is_admin'] || (int)$currentUser['id'] === (int)$m['uploaded_by'])): ?>
+                    <?php if ($user && ($user['is_admin'] || (int)$user['id'] === (int)$m['uploaded_by'])): ?>
                         <span>
                             |
                             <a href="<?= BASE_URL ?>/manuals/edit?id=<?= (int)$m['id'] ?>">Edit</a>

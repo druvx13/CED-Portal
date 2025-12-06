@@ -3,11 +3,11 @@
 namespace App\Models;
 
 use App\Core\Database;
-use PDO;
 
 class Note {
-    public static function getAllForUser(int $userId) {
-        $stmt = Database::getConnection()->prepare("
+    public static function allForUser($userId) {
+        $pdo = Database::connect();
+        $stmt = $pdo->prepare("
             SELECT * FROM notes
             WHERE user_id = ?
             ORDER BY created_at DESC
@@ -16,12 +16,13 @@ class Note {
         return $stmt->fetchAll();
     }
 
-    public static function create(int $userId, string $title, string $body) {
-        $stmt = Database::getConnection()->prepare("
+    public static function create($userId, $title, $body) {
+        $pdo = Database::connect();
+        $stmt = $pdo->prepare("
             INSERT INTO notes (user_id, title, body)
             VALUES (?, ?, ?)
         ");
         $stmt->execute([$userId, $title, $body]);
-        return Database::getConnection()->lastInsertId();
+        return $pdo->lastInsertId();
     }
 }

@@ -1,7 +1,7 @@
 <section class="page auth-page">
     <h1>Login</h1>
     <?php if (!empty($error)): ?>
-        <div class="alert alert--error"><?= \App\Core\View::h($error) ?></div>
+        <div class="alert alert--error"><?= \App\Utils\Helper::h($error) ?></div>
     <?php endif; ?>
     <form method="post" class="form">
         <label>

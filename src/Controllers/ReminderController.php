@@ -2,8 +2,8 @@
 
 namespace App\Controllers;
 
-use App\Core\View;
 use App\Core\Auth;
+use App\Core\View;
 use App\Utils\Helper;
 use App\Models\Reminder;
 
@@ -17,11 +17,15 @@ class ReminderController {
         $due_date = '';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $message = trim($_POST['message'] ?? '');
+            $message  = trim($_POST['message'] ?? '');
             $due_date = trim($_POST['due_date'] ?? '');
 
-            if ($message === '') $errors[] = "Message is required.";
-            if ($due_date === '') $errors[] = "Due date is required.";
+            if ($message === '') {
+                $errors[] = "Message is required.";
+            }
+            if ($due_date === '') {
+                $errors[] = "Due date is required.";
+            }
 
             $dt = null;
             if ($due_date !== '') {
@@ -34,14 +38,15 @@ class ReminderController {
             }
         }
 
-        $reminders = Reminder::getAllForUser($user['id']);
+        $reminders = Reminder::allForUser($user['id']);
 
-        $view = new View();
-        $view->render('reminders/index', [
+        View::render('reminders/index', [
+            'reminders' => $reminders,
             'errors' => $errors,
-            'message' => $message,
-            'due_date' => $due_date,
-            'reminders' => $reminders
-        ], 'Reminders');
+            'message_val' => $message,
+            'due_date_val' => $due_date,
+            'user' => $user,
+            'title' => 'Reminders'
+        ]);
     }
 }

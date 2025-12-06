@@ -2,7 +2,9 @@
 
 namespace App\Controllers;
 
+use App\Core\Auth;
 use App\Core\View;
+use App\Utils\Helper;
 use App\Models\User;
 use App\Models\LabProgram;
 use App\Models\LabManual;
@@ -10,66 +12,75 @@ use App\Models\Homework;
 
 class UserController {
     public function index() {
-        $perPage = 20;
         $page = isset($_GET['page']) && (int)$_GET['page'] > 0 ? (int)$_GET['page'] : 1;
+        $perPage = 20;
         $offset = ($page - 1) * $perPage;
 
         $users = User::all($perPage, $offset);
         $total = User::count();
         $totalPages = max(1, (int)ceil($total / $perPage));
 
-        $view = new View();
-        $view->render('users/index', [
+        View::render('users/index', [
             'users' => $users,
             'page' => $page,
-            'totalPages' => $totalPages
-        ], 'Users');
+            'totalPages' => $totalPages,
+            'user' => Auth::user(),
+            'title' => 'Users'
+        ]);
     }
 
     public function posts() {
         $userId = (int)($_GET['id'] ?? 0);
         if ($userId <= 0) {
             http_response_code(400);
-            die("Bad Request");
+            View::render('errors/400', ['title' => 'Bad Request']);
+            return;
         }
 
-        $user = User::find($userId);
-        if (!$user) {
+        $targetUser = User::find($userId);
+        if (!$targetUser) {
             http_response_code(404);
-            die("User not found");
+            View::render('errors/404', ['title' => 'User Not Found']);
+            return;
         }
 
-        $perPage = 10;
+        $perPageProg = 10;
+        $perPageMan  = 10;
+        $perPageHw   = 10;
 
         $pageProg = isset($_GET['page_prog']) && (int)$_GET['page_prog'] > 0 ? (int)$_GET['page_prog'] : 1;
         $pageMan  = isset($_GET['page_manual']) && (int)$_GET['page_manual'] > 0 ? (int)$_GET['page_manual'] : 1;
         $pageHw   = isset($_GET['page_hw']) && (int)$_GET['page_hw'] > 0 ? (int)$_GET['page_hw'] : 1;
 
-        $offProg = ($pageProg - 1) * $perPage;
-        $offMan  = ($pageMan - 1) * $perPage;
-        $offHw   = ($pageHw - 1) * $perPage;
+        $offProg = ($pageProg - 1) * $perPageProg;
+        $offMan  = ($pageMan - 1) * $perPageMan;
+        $offHw   = ($pageHw - 1) * $perPageHw;
 
-        $userPrograms = LabProgram::findByUserId($userId, $perPage, $offProg);
-        $totPagesProg = max(1, (int)ceil(LabProgram::countByUserId($userId) / $perPage));
+        $userPrograms = LabProgram::getByUser($userId, $perPageProg, $offProg);
+        $totalProg = LabProgram::countByUser($userId);
+        $totPagesProg = max(1, (int)ceil($totalProg / $perPageProg));
 
-        $userManuals = LabManual::findByUserId($userId, $perPage, $offMan);
-        $totPagesMan = max(1, (int)ceil(LabManual::countByUserId($userId) / $perPage));
+        $userManuals = LabManual::getByUser($userId, $perPageMan, $offMan);
+        $totalMan = LabManual::countByUser($userId);
+        $totPagesMan = max(1, (int)ceil($totalMan / $perPageMan));
 
-        $userHomework = Homework::findByUserId($userId, $perPage, $offHw);
-        $totPagesHw = max(1, (int)ceil(Homework::countByUserId($userId) / $perPage));
+        $userHomework = Homework::getByUser($userId, $perPageHw, $offHw);
+        $totalHw = Homework::countByUser($userId);
+        $totPagesHw = max(1, (int)ceil($totalHw / $perPageHw));
 
-        $view = new View();
-        $view->render('users/posts', [
-            'user' => $user,
+        View::render('users/posts', [
+            'targetUser' => $targetUser,
             'userPrograms' => $userPrograms,
-            'pageProg' => $pageProg,
             'totPagesProg' => $totPagesProg,
+            'pageProg' => $pageProg,
             'userManuals' => $userManuals,
-            'pageMan' => $pageMan,
             'totPagesMan' => $totPagesMan,
+            'pageMan' => $pageMan,
             'userHomework' => $userHomework,
+            'totPagesHw' => $totPagesHw,
             'pageHw' => $pageHw,
-            'totPagesHw' => $totPagesHw
-        ], 'Posts by ' . $user['username']);
+            'user' => Auth::user(),
+            'title' => 'Posts by ' . $targetUser['username']
+        ]);
     }
 }

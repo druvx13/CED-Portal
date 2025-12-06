@@ -3,6 +3,10 @@
 namespace App\Utils;
 
 class Helper {
+    public static function h(string $v): string {
+        return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    }
+
     public static function safeSlug(string $name): string {
         $slug = strtolower(trim($name));
         $slug = preg_replace('/[^a-z0-9]+/', '-', $slug);
@@ -14,7 +18,7 @@ class Helper {
     }
 
     public static function redirect(string $path): void {
-        $baseUrl = getenv('BASE_URL') ?: '';
+        $baseUrl = \App\Config\Config::get('BASE_URL');
         if (strpos($path, 'http') !== 0) {
             $path = rtrim($baseUrl, '/') . $path;
         }

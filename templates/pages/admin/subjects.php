@@ -5,7 +5,7 @@
         <div class="alert alert--error">
             <ul>
                 <?php foreach ($errors as $e): ?>
-                    <li><?= \App\Core\View::h($e) ?></li>
+                    <li><?= \App\Utils\Helper::h($e) ?></li>
                 <?php endforeach; ?>
             </ul>
         </div>
@@ -26,9 +26,9 @@
         <?php foreach ($subjects as $s): ?>
             <tr>
                 <td><?= (int)$s['id'] ?></td>
-                <td><?= \App\Core\View::h($s['name']) ?></td>
-                <td><?= \App\Core\View::h($s['slug']) ?></td>
-                <td><?= \App\Core\View::h($s['created_at']) ?></td>
+                <td><?= \App\Utils\Helper::h($s['name']) ?></td>
+                <td><?= \App\Utils\Helper::h($s['slug']) ?></td>
+                <td><?= \App\Utils\Helper::h($s['created_at']) ?></td>
                 <td>
                     <form method="post" onsubmit="return confirm('Delete this subject?');">
                         <input type="hidden" name="delete_id" value="<?= (int)$s['id'] ?>">

@@ -5,32 +5,32 @@
         <div class="alert alert--error">
             <ul>
                 <?php foreach ($errors as $e): ?>
-                    <li><?= \App\Core\View::h($e) ?></li>
+                    <li><?= \App\Utils\Helper::h($e) ?></li>
                 <?php endforeach; ?>
             </ul>
         </div>
     <?php endif; ?>
 
     <form method="post" class="form" enctype="multipart/form-data">
-        <input type="hidden" name="id" value="<?= (int)$id ?>">
+        <input type="hidden" name="id" value="<?= (int)$program['id'] ?>">
         <label>
             Title
-            <input type="text" name="title" required value="<?= \App\Core\View::h($title) ?>">
+            <input type="text" name="title" required value="<?= \App\Utils\Helper::h($title_val) ?>">
         </label>
         <label>
             Language
             <select name="language_id" required>
                 <option value="">Select language</option>
                 <?php foreach ($languages as $lang): ?>
-                    <option value="<?= (int)$lang['id'] ?>" <?= $language_id === (int)$lang['id'] ? 'selected' : '' ?>>
-                        <?= \App\Core\View::h($lang['name']) ?>
+                    <option value="<?= (int)$lang['id'] ?>" <?= $language_id_val === (int)$lang['id'] ? 'selected' : '' ?>>
+                        <?= \App\Utils\Helper::h($lang['name']) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
         </label>
         <label>
             Code
-            <textarea name="code" rows="15" class="textarea--mono" required><?= \App\Core\View::h($code) ?></textarea>
+            <textarea name="code" rows="15" class="textarea--mono" required><?= \App\Utils\Helper::h($code_val) ?></textarea>
         </label>
         <label>
             Replace output (optional)

@@ -1,34 +1,37 @@
 # CED Portal
 
-A PHP web application for Computer Engineering Department students to manage lab programs, manuals, homework, and notes.
+A PHP-based web application for managing lab programs, manuals, homework, and reminders for Computer Engineering students.
 
 ## Architecture
 
-This application uses a custom MVC (Model-View-Controller) architecture.
+This project has been restructured to follow a modern MVC (Model-View-Controller) architecture.
 
 ### Directory Structure
 
-- `public/`: Web root. Contains the entry point `index.php` and static assets.
+- `public/`: The web root. Contains `index.php` (Front Controller) and static assets.
 - `src/`: Application source code.
     - `Config/`: Configuration handling.
-    - `Controllers/`: Handles incoming requests.
-    - `Core/`: Framework core (Router, Database, View, etc.).
+    - `Core/`: Framework core (Router, Database, View, Auth).
+    - `Controllers/`: Request handlers.
     - `Models/`: Data access layer.
     - `Utils/`: Helper functions.
 - `templates/`: View templates (HTML).
-    - `layout/`: Shared layout files (header, footer).
-    - `pages/`: Page-specific templates.
+- `vendor/`: Composer dependencies (if applicable).
 
 ## Setup
 
-1.  Clone the repository.
-2.  Copy `.env.example` to `.env` and configure your database credentials.
-3.  Import `schema.sql` into your MySQL database.
-4.  Configure your web server to point to the `public/` directory.
-5.  Ensure `public/uploads/` is writable by the web server.
+1.  **Clone the repository.**
+2.  **Configure Environment:**
+    - Copy `.env.example` to `.env`.
+    - Update `DB_*` and `BASE_URL` values in `.env`.
+3.  **Database:**
+    - Import `schema.sql` into your MySQL database.
+    - The `bp_db.php` has been replaced by `src/Core/Database.php`.
+4.  **Web Server:**
+    - Point your web server (Apache/Nginx) document root to the `public/` directory.
+    - Ensure URL rewriting is enabled to route all requests to `public/index.php`.
 
-## Requirements
+## Development
 
-- PHP 7.4+
-- MySQL/MariaDB
-- Apache (with mod_rewrite) or Nginx
+- **Autoloading:** A simple PSR-4 compliant autoloader is included in `src/Autoloader.php`.
+- **Routing:** Routes are defined in `public/index.php`.
