@@ -1,0 +1,15 @@
+# Dependencies
+/vendor
+composer.lock
+
+# Environment
+.env
+
+# Uploads
+/public/uploads/*
+!/public/uploads/.gitkeep
+
+# IDEs
+.idea
+.vscode
+*.swp
