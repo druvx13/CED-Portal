@@ -14,6 +14,13 @@ class Subject {
         ")->fetchAll();
     }
 
+    public static function find($id) {
+        $pdo = Database::connect();
+        $stmt = $pdo->prepare("SELECT * FROM subjects WHERE id = ?");
+        $stmt->execute([$id]);
+        return $stmt->fetch();
+    }
+
     public static function findByName($name) {
         $pdo = Database::connect();
         $stmt = $pdo->prepare("SELECT id FROM subjects WHERE name = ?");
