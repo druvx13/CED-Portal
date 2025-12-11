@@ -34,6 +34,40 @@ class HomeworkController {
         ]);
     }
 
+    public function view() {
+        $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
+        $hw = Homework::find($id);
+
+        if (!$hw) {
+            http_response_code(404);
+            View::render('errors/404', ['title' => 'Homework Not Found']);
+            return;
+        }
+
+        // Fetch subject name since Homework::find doesn't join it (based on Models/Homework.php)
+        // Actually, Homework::find() does SELECT * FROM homework WHERE id = ?
+        // We might want to fetch the subject name.
+        // Checking Homework.php: find() is simple select.
+        // I should probably fetch the subject name or update find() to include it.
+        // For now, I'll fetch it separately or let the view handle it if I pass subjects.
+        // But better to just get the subject name.
+
+        $subjectName = 'Uncategorized';
+        if ($hw['subject_id']) {
+            $subject = Subject::find($hw['subject_id']);
+            if ($subject) {
+                $subjectName = $subject['name'];
+            }
+        }
+        $hw['subject_name'] = $subjectName;
+
+        View::render('homework/view', [
+            'hw' => $hw,
+            'user' => Auth::user(),
+            'title' => $hw['title']
+        ]);
+    }
+
     public function new() {
         Auth::requireLogin();
         // Prompt says "Only staff can post new ones", assuming Admin check for now based on original code

@@ -63,6 +63,7 @@ $router->post('/manuals/delete', ['App\Controllers\ManualController', 'delete'])
 
 // Homework
 $router->get('/homework', ['App\Controllers\HomeworkController', 'index']);
+$router->get('/homework/view', ['App\Controllers\HomeworkController', 'view']);
 $router->get('/homework/new', ['App\Controllers\HomeworkController', 'new']);
 $router->post('/homework/new', ['App\Controllers\HomeworkController', 'new']);
 $router->get('/homework/edit', ['App\Controllers\HomeworkController', 'edit']);

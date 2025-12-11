@@ -27,7 +27,7 @@
                     <tbody>
                     <?php foreach ($items as $hw): ?>
                         <tr>
-                            <td><?= \App\Utils\Helper::h($hw['title']) ?></td>
+                            <td><a href="<?= BASE_URL ?>/homework/view?id=<?= (int)$hw['id'] ?>"><?= \App\Utils\Helper::h($hw['title']) ?></a></td>
                             <td><?= \App\Utils\Helper::h($hw['due_date'] ?? '—') ?></td>
                             <td><?= nl2br(\App\Utils\Helper::h(mb_strimwidth($hw['question'], 0, 160, '…', 'UTF-8'))) ?></td>
                             <td>
