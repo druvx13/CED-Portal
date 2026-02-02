@@ -1,7 +1,7 @@
 <section class="page">
     <h1>Lab Manuals</h1>
     <?php if ($user): ?>
-        <p><a class="btn btn--small" href="<?= BASE_URL ?>/manuals/new">Upload manual</a></p>
+        <p><a class="btn btn--primary" href="<?= BASE_URL ?>/manuals/new">Upload manual</a></p>
     <?php else: ?>
         <p class="muted">Login to upload manuals. Everyone can download them.</p>
     <?php endif; ?>

@@ -11,6 +11,7 @@
     <script>document.addEventListener('DOMContentLoaded', () => { if (window.hljs) { hljs.highlightAll(); } });</script>
 </head>
 <body>
+<a href="#main-content" class="skip-to-main">Skip to main content</a>
 <header class="site-header">
     <div class="site-header__inner">
         <a href="<?= BASE_URL ?>/" class="logo">CED Portal</a>
@@ -52,7 +53,7 @@
         </div>
     </div>
 </header>
-<main class="site-main">
+<main class="site-main" id="main-content">
     <?= $content ?>
 </main>
 <footer class="site-footer">

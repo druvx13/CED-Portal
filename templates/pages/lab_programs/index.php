@@ -1,7 +1,7 @@
 <section class="page">
     <h1>Lab Programs</h1>
     <?php if ($user): ?>
-        <p><a class="btn btn--small" href="<?= BASE_URL ?>/lab-programs/new">Upload new program</a></p>
+        <p><a class="btn btn--primary" href="<?= BASE_URL ?>/lab-programs/new">Upload new program</a></p>
     <?php else: ?>
         <p class="muted">Login to upload new programs. Existing ones are visible to everyone.</p>
     <?php endif; ?>
