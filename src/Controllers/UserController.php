@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Core\Auth;
+use App\Core\BaseController;
+use App\Core\CSRF;
 use App\Core\View;
 use App\Utils\Helper;
 use App\Models\User;
@@ -10,7 +12,7 @@ use App\Models\LabProgram;
 use App\Models\LabManual;
 use App\Models\Homework;
 
-class UserController {
+class UserController extends BaseController {
     public function index() {
         $page = isset($_GET['page']) && (int)$_GET['page'] > 0 ? (int)$_GET['page'] : 1;
         $perPage = 20;

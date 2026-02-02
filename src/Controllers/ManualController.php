@@ -3,13 +3,15 @@
 namespace App\Controllers;
 
 use App\Core\Auth;
+use App\Core\BaseController;
+use App\Core\CSRF;
 use App\Core\View;
 use App\Utils\Helper;
 use App\Models\LabManual;
 use RuntimeException;
 use finfo;
 
-class ManualController {
+class ManualController extends BaseController {
     public function index() {
         $page = isset($_GET['page']) && (int)$_GET['page'] > 0 ? (int)$_GET['page'] : 1;
         $perPage = 20;
@@ -35,6 +37,7 @@ class ManualController {
         $title = '';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            CSRF::requireToken();
             $title = trim($_POST['title'] ?? '');
             if ($title === '') {
                 $errors[] = "Title is required.";
@@ -86,6 +89,7 @@ class ManualController {
         $pdfPath = $manual['pdf_path'];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            CSRF::requireToken();
             $title = trim($_POST['title'] ?? '');
             if ($title === '') {
                 $errors[] = "Title is required.";
@@ -122,6 +126,7 @@ class ManualController {
         $user = Auth::user();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            CSRF::requireToken();
             $id = (int)($_POST['id'] ?? 0);
             $manual = LabManual::find($id);
 

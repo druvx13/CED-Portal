@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Core\Auth;
+use App\Core\BaseController;
+use App\Core\CSRF;
 use App\Core\View;
 use App\Core\Database;
 use App\Utils\Helper;
@@ -10,7 +12,7 @@ use App\Models\User;
 use App\Models\Language;
 use App\Models\Subject;
 
-class AdminController {
+class AdminController extends BaseController {
     public function users() {
         Auth::requireLogin();
         Auth::requireAdmin();
@@ -20,6 +22,7 @@ class AdminController {
         $success = null;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            CSRF::requireToken();
             Auth::requireSuperAdmin(); // Only first admin can create users
 
             $username = trim($_POST['username'] ?? '');
@@ -63,6 +66,7 @@ class AdminController {
         $errors = [];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            CSRF::requireToken();
             if (isset($_POST['add'])) {
                 $name = trim($_POST['name'] ?? '');
                 if ($name === '') {
@@ -103,6 +107,7 @@ class AdminController {
         $errors = [];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            CSRF::requireToken();
             if (isset($_POST['add'])) {
                 $name = trim($_POST['name'] ?? '');
                 if ($name === '') {
