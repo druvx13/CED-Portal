@@ -2,9 +2,22 @@
 
 namespace App\Utils;
 
+use App\Core\Security;
+use App\Core\CSRF;
+
 class Helper {
-    public static function h(string $v): string {
-        return htmlspecialchars($v, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    /**
+     * HTML escape (alias for Security::escape for backwards compatibility)
+     */
+    public static function h(?string $v): string {
+        return Security::escape($v ?? '');
+    }
+
+    /**
+     * Get CSRF token field for forms
+     */
+    public static function csrfField(): string {
+        return CSRF::getTokenField();
     }
 
     public static function safeSlug(string $name): string {

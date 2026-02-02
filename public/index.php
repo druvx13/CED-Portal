@@ -5,12 +5,24 @@ require_once __DIR__ . '/../src/Autoloader.php';
 use App\Config\Config;
 use App\Core\Router;
 use App\Core\Database;
+use App\Core\Security;
 
 // Load environment variables
 Config::load(__DIR__ . '/../.env');
 
+// Configure secure session settings
+Security::configureSession();
+
 // Start session
 session_start();
+
+// Apply security headers
+Security::applySecurityHeaders();
+
+// Sanitize all input data
+Security::sanitizeInput($_GET);
+Security::sanitizeInput($_POST);
+Security::sanitizeInput($_COOKIE);
 
 // Initialize DB (handles connection check)
 try {
