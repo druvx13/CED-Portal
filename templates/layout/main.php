@@ -15,7 +15,13 @@
     <div class="site-header__inner">
         <a href="<?= BASE_URL ?>/" class="logo">CED Portal</a>
 
-        <nav class="nav">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="nav" id="navMenu">
             <a href="<?= BASE_URL ?>/">Dashboard</a>
             <a href="<?= BASE_URL ?>/lab-programs">Lab Programs</a>
             <a href="<?= BASE_URL ?>/manuals">Lab Manuals</a>
