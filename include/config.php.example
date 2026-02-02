@@ -1,0 +1,29 @@
+<?php
+
+/**
+ * CED Portal Configuration File
+ * Adapted from FluxBB architecture
+ */
+
+// Database configuration
+$db_type = 'mysqli';
+$db_host = 'localhost';
+$db_name = 'ced_portal';
+$db_username = 'root';
+$db_password = '';
+$db_prefix = 'ced_';
+$p_connect = false;
+
+// Cookie configuration
+$cookie_name = 'ced_cookie';
+$cookie_domain = '';
+$cookie_path = '/';
+$cookie_secure = 0;
+$cookie_seed = 'CHANGE_THIS_TO_RANDOM_STRING';
+
+// Site URL
+define('CED_BASE_URL', 'http://localhost');
+
+// Installation complete flag
+define('CED', 1);
+
