@@ -3,12 +3,14 @@
 namespace App\Controllers;
 
 use App\Core\Auth;
+use App\Core\BaseController;
+use App\Core\CSRF;
 use App\Core\View;
 use App\Models\LabProgram;
 use App\Models\LabManual;
 use App\Models\Reminder;
 
-class DashboardController {
+class DashboardController extends BaseController {
     public function index() {
         $user = Auth::user();
 

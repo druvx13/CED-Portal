@@ -3,11 +3,13 @@
 namespace App\Controllers;
 
 use App\Core\Auth;
+use App\Core\BaseController;
+use App\Core\CSRF;
 use App\Core\View;
 use App\Utils\Helper;
 use App\Models\Note;
 
-class NoteController {
+class NoteController extends BaseController {
     public function index() {
         Auth::requireLogin();
         $user = Auth::user();
@@ -16,6 +18,7 @@ class NoteController {
         $title = $body = '';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            CSRF::requireToken();
             $title = trim($_POST['title'] ?? '');
             $body  = trim($_POST['body'] ?? '');
 

@@ -3,11 +3,13 @@
 namespace App\Controllers;
 
 use App\Core\Auth;
+use App\Core\BaseController;
+use App\Core\CSRF;
 use App\Core\View;
 use App\Utils\Helper;
 use App\Models\Reminder;
 
-class ReminderController {
+class ReminderController extends BaseController {
     public function index() {
         Auth::requireLogin();
         $user = Auth::user();
@@ -17,6 +19,7 @@ class ReminderController {
         $due_date = '';
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            CSRF::requireToken();
             $message  = trim($_POST['message'] ?? '');
             $due_date = trim($_POST['due_date'] ?? '');
 

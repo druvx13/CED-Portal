@@ -3,6 +3,8 @@
 namespace App\Controllers;
 
 use App\Core\Auth;
+use App\Core\BaseController;
+use App\Core\CSRF;
 use App\Core\View;
 use App\Core\Database;
 use App\Utils\Helper;
@@ -11,7 +13,7 @@ use App\Models\Language;
 use RuntimeException;
 use finfo;
 
-class LabProgramController {
+class LabProgramController extends BaseController {
     public function index() {
         $page = isset($_GET['page']) && (int)$_GET['page'] > 0 ? (int)$_GET['page'] : 1;
         $perPage = 20;
@@ -64,6 +66,7 @@ class LabProgramController {
         $languages = Language::all();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            CSRF::requireToken();
             $title       = trim($_POST['title'] ?? '');
             $code        = (string)($_POST['code'] ?? '');
             $language_id = (int)($_POST['language_id'] ?? 0);
@@ -142,6 +145,7 @@ class LabProgramController {
         $languages = Language::all();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            CSRF::requireToken();
              $title       = trim($_POST['title'] ?? '');
             $code        = (string)($_POST['code'] ?? '');
             $language_id = (int)($_POST['language_id'] ?? 0);
@@ -200,6 +204,7 @@ class LabProgramController {
         $user = Auth::user();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            CSRF::requireToken();
             $id = (int)($_POST['id'] ?? 0);
             $program = LabProgram::find($id);
 

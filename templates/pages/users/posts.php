@@ -10,7 +10,7 @@
                         <a href="<?= BASE_URL ?>/lab-programs/view?id=<?= (int)$p['id'] ?>">
                             <?= \App\Utils\Helper::h($p['title']) ?>
                         </a>
-                        <span class="muted">
+                        <span class="u-text-muted">
                             (<?= \App\Utils\Helper::h($p['language_name']) ?>,
                             <?= \App\Utils\Helper::h($p['created_at']) ?>)
                         </span>
@@ -30,7 +30,7 @@
                 </nav>
             <?php endif; ?>
         <?php else: ?>
-            <p class="muted">No lab programs posted.</p>
+            <p class="u-text-muted">No lab programs posted.</p>
         <?php endif; ?>
     </section>
 
@@ -43,7 +43,7 @@
                         <a href="<?= \App\Utils\Helper::h($m['pdf_path']) ?>" target="_blank">
                             <?= \App\Utils\Helper::h($m['title']) ?>
                         </a>
-                        <span class="muted">(<?= \App\Utils\Helper::h($m['created_at']) ?>)</span>
+                        <span class="u-text-muted">(<?= \App\Utils\Helper::h($m['created_at']) ?>)</span>
                     </li>
                 <?php endforeach; ?>
             </ul>
@@ -60,7 +60,7 @@
                 </nav>
             <?php endif; ?>
         <?php else: ?>
-            <p class="muted">No lab manuals posted.</p>
+            <p class="u-text-muted">No lab manuals posted.</p>
         <?php endif; ?>
     </section>
 
@@ -71,7 +71,7 @@
                 <?php foreach ($userHomework as $h): ?>
                     <li>
                         <?= \App\Utils\Helper::h($h['title']) ?>
-                        <span class="muted">
+                        <span class="u-text-muted">
                             (subject <?= \App\Utils\Helper::h($h['subject_name']) ?>,
                             due <?= \App\Utils\Helper::h($h['due_date'] ?? '—') ?>,
                             created <?= \App\Utils\Helper::h($h['created_at']) ?>)
@@ -92,7 +92,7 @@
                 </nav>
             <?php endif; ?>
         <?php else: ?>
-            <p class="muted">No homework posted.</p>
+            <p class="u-text-muted">No homework posted.</p>
         <?php endif; ?>
     </section>
 </section>
