@@ -4,3 +4,11 @@ node_modules/
 *.log
 .DS_Store
 public/uploads/
+
+# CED Portal - FluxBB specific
+include/config.php
+cache/*.php
+!cache/.htaccess
+!cache/index.html
+img/avatars/*
+!img/avatars/.gitkeep

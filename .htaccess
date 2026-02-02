@@ -1,12 +1,44 @@
+# CED Portal .htaccess
+# Adapted from FluxBB
 
-# htdocs/.htaccess
-
+<IfModule mod_rewrite.c>
 RewriteEngine On
 
-# Redirect root to /public/
-RewriteRule ^$ public/ [L]
+# Uncomment the following line if your forum is in a subdirectory
+# and you're experiencing problems with the rewritten URLs
+# RewriteBase /path/to/forum/
 
-# Rewrite all other requests to public/ if the file doesn't exist in htdocs root
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ public/$1 [L]
+# Protect sensitive files
+<FilesMatch "(\.tpl|config\.php)$">
+    Order allow,deny
+    Deny from all
+</FilesMatch>
+
+# Block access to cache directory
+<IfModule mod_alias.c>
+    RedirectMatch 403 /cache/.*\.php$
+</IfModule>
+
+# Prevent directory listing
+Options -Indexes
+
+# Custom error pages (optional)
+# ErrorDocument 404 /404.php
+# ErrorDocument 403 /403.php
+</IfModule>
+
+# Compression
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/javascript application/javascript application/x-javascript
+</IfModule>
+
+# Caching
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/gif "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType text/javascript "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+</IfModule>
