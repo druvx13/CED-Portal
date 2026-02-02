@@ -1,14 +1,14 @@
 <section class="page dashboard">
     <h1>Dashboard</h1>
-    <p class="muted">
+    <p class="u-text-muted">
         Guests can browse content. Log in to add your own lab programs, manuals, homework and reminders.
     </p>
 
     <div class="dashboard-grid">
         <?php if ($user): ?>
-            <section class="card card--reminders">
-                <header class="card__header">
-                    <h2>Upcoming Reminders</h2>
+            <section class="c-card card--reminders">
+                <header class="c-card__header">
+                    <h2 class="c-card__title">Upcoming Reminders</h2>
                     <a href="<?= BASE_URL ?>/reminders" class="card__link">View all</a>
                 </header>
                 <?php if ($reminders): ?>
@@ -21,15 +21,15 @@
                         <?php endforeach; ?>
                     </ul>
                 <?php else: ?>
-                    <p class="muted">No upcoming reminders.</p>
+                    <p class="u-text-muted">No upcoming reminders.</p>
                 <?php endif; ?>
-                <a class="btn btn--small" href="<?= BASE_URL ?>/reminders">Add reminder</a>
+                <a class="c-btn c-btn--small" href="<?= BASE_URL ?>/reminders">Add reminder</a>
             </section>
         <?php endif; ?>
 
-        <section class="card card--programs">
-            <header class="card__header">
-                <h2>Recent Lab Programs</h2>
+        <section class="c-card card--programs">
+            <header class="c-card__header">
+                <h2 class="c-card__title">Recent Lab Programs</h2>
                 <a href="<?= BASE_URL ?>/lab-programs" class="card__link">All programs</a>
             </header>
             <?php if ($programs): ?>
@@ -49,23 +49,23 @@
                                 echo \App\Utils\Helper::h($preview . (mb_strlen($p['code'], 'UTF-8') > 260 ? "...\n" : ""));
                             ?></code></pre>
                             <div class="code-snippet-meta">
-                                <span class="muted">By <?= \App\Utils\Helper::h($p['username'] ?? 'Unknown') ?></span>
-                                <span class="muted"><?= \App\Utils\Helper::h($p['created_at']) ?></span>
+                                <span class="u-text-muted">By <?= \App\Utils\Helper::h($p['username'] ?? 'Unknown') ?></span>
+                                <span class="u-text-muted"><?= \App\Utils\Helper::h($p['created_at']) ?></span>
                             </div>
                         </article>
                     <?php endforeach; ?>
                 </div>
             <?php else: ?>
-                <p class="muted">No programs yet.</p>
+                <p class="u-text-muted">No programs yet.</p>
             <?php endif; ?>
             <?php if ($user): ?>
-                <a class="btn btn--small" href="<?= BASE_URL ?>/lab-programs/new">Upload program</a>
+                <a class="c-btn c-btn--small" href="<?= BASE_URL ?>/lab-programs/new">Upload program</a>
             <?php endif; ?>
         </section>
 
-        <section class="card card--manuals">
-            <header class="card__header">
-                <h2>Latest Lab Manuals</h2>
+        <section class="c-card card--manuals">
+            <header class="c-card__header">
+                <h2 class="c-card__title">Latest Lab Manuals</h2>
                 <a href="<?= BASE_URL ?>/manuals" class="card__link">All manuals</a>
             </header>
             <?php if ($manuals): ?>
@@ -75,15 +75,15 @@
                             <a href="<?= \App\Utils\Helper::h($m['pdf_path']) ?>" target="_blank">
                                 <?= \App\Utils\Helper::h($m['title']) ?>
                             </a>
-                            <span class="muted"><?= \App\Utils\Helper::h($m['created_at']) ?></span>
+                            <span class="u-text-muted"><?= \App\Utils\Helper::h($m['created_at']) ?></span>
                         </li>
                     <?php endforeach; ?>
                 </ul>
             <?php else: ?>
-                <p class="muted">No manuals yet.</p>
+                <p class="u-text-muted">No manuals yet.</p>
             <?php endif; ?>
             <?php if ($user): ?>
-                <a class="btn btn--small" href="<?= BASE_URL ?>/manuals/new">Upload manual</a>
+                <a class="c-btn c-btn--small" href="<?= BASE_URL ?>/manuals/new">Upload manual</a>
             <?php endif; ?>
         </section>
     </div>

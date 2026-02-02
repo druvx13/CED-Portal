@@ -1,9 +1,9 @@
 <section class="page">
     <h1>Lab Manuals</h1>
     <?php if ($user): ?>
-        <p><a class="btn btn--small" href="<?= BASE_URL ?>/manuals/new">Upload manual</a></p>
+        <p><a class="c-btn c-btn--small" href="<?= BASE_URL ?>/manuals/new">Upload manual</a></p>
     <?php else: ?>
-        <p class="muted">Login to upload manuals. Everyone can download them.</p>
+        <p class="u-text-muted">Login to upload manuals. Everyone can download them.</p>
     <?php endif; ?>
 
     <?php if ($manuals): ?>
@@ -13,7 +13,7 @@
                     <a href="<?= \App\Utils\Helper::h($m['pdf_path']) ?>" target="_blank">
                         <?= \App\Utils\Helper::h($m['title']) ?>
                     </a>
-                    <span class="muted">
+                    <span class="u-text-muted">
                         (<?= \App\Utils\Helper::h($m['created_at']) ?>,
                         by <?= \App\Utils\Helper::h($m['username'] ?? 'Unknown') ?>)
                     </span>
@@ -22,8 +22,9 @@
                             |
                             <a href="<?= BASE_URL ?>/manuals/edit?id=<?= (int)$m['id'] ?>">Edit</a>
                             <form method="post" action="<?= BASE_URL ?>/manuals/delete" class="inline-form" style="display:inline;" onsubmit="return confirm('Delete this manual?');">
+                                <?= \App\Utils\Helper::csrfField() ?>
                                 <input type="hidden" name="id" value="<?= (int)$m['id'] ?>">
-                                <button type="submit">Delete</button>
+                                <button type="submit" class="c-btn">Delete</button>
                             </form>
                         </span>
                     <?php endif; ?>
@@ -44,6 +45,6 @@
         <?php endif; ?>
 
     <?php else: ?>
-        <p class="muted">No manuals uploaded yet.</p>
+        <p class="u-text-muted">No manuals uploaded yet.</p>
     <?php endif; ?>
 </section>

@@ -1,17 +1,19 @@
 <section class="page">
     <h1>Lab Programs</h1>
     <?php if ($user): ?>
-        <p><a class="btn btn--small" href="<?= BASE_URL ?>/lab-programs/new">Upload new program</a></p>
+        <p><a class="c-btn c-btn--small" href="<?= BASE_URL ?>/lab-programs/new">Upload new program</a></p>
     <?php else: ?>
-        <p class="muted">Login to upload new programs. Existing ones are visible to everyone.</p>
+        <p class="u-text-muted">Login to upload new programs. Existing ones are visible to everyone.</p>
     <?php endif; ?>
 
     <?php if (!$grouped): ?>
-        <p class="muted">No lab programs uploaded yet.</p>
+        <p class="u-text-muted">No lab programs uploaded yet.</p>
     <?php else: ?>
         <?php foreach ($grouped as $language => $programs): ?>
-            <section class="card">
-                <h2><?= \App\Utils\Helper::h($language) ?></h2>
+            <section class="c-card">
+                <header class="c-card__header">
+                    <h2 class="c-card__title"><?= \App\Utils\Helper::h($language) ?></h2>
+                </header>
                 <ul>
                     <?php foreach ($programs as $p): ?>
                         <li>
@@ -20,7 +22,7 @@
                                     <?= \App\Utils\Helper::h($p['title']) ?>
                                 </a>
                             </strong>
-                            <span class="muted">
+                            <span class="u-text-muted">
                                 by <?= \App\Utils\Helper::h($p['username'] ?? 'Unknown') ?> · <?= \App\Utils\Helper::h($p['created_at']) ?>
                             </span>
                             <?php if ($user && ($user['is_admin'] || (int)$user['id'] === (int)$p['uploaded_by'])): ?>
@@ -28,8 +30,9 @@
                                     |
                                     <a href="<?= BASE_URL ?>/lab-programs/edit?id=<?= (int)$p['id'] ?>">Edit</a>
                                     <form method="post" action="<?= BASE_URL ?>/lab-programs/delete" class="inline-form" style="display:inline;" onsubmit="return confirm('Delete this program?');">
+                                        <?= \App\Utils\Helper::csrfField() ?>
                                         <input type="hidden" name="id" value="<?= (int)$p['id'] ?>">
-                                        <button type="submit">Delete</button>
+                                        <button type="submit" class="c-btn">Delete</button>
                                     </form>
                                 </span>
                             <?php endif; ?>

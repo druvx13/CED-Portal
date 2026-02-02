@@ -2,7 +2,7 @@
     <h1>Subjects</h1>
 
     <?php if (!empty($errors)): ?>
-        <div class="alert alert--error">
+        <div class="c-alert c-alert--error" role="alert">
             <ul>
                 <?php foreach ($errors as $e): ?>
                     <li><?= \App\Utils\Helper::h($e) ?></li>
@@ -12,7 +12,7 @@
     <?php endif; ?>
 
     <h2>Existing subjects</h2>
-    <table class="changes-table">
+    <table class="c-table">
         <thead>
             <tr>
                 <th>ID</th>
@@ -31,8 +31,9 @@
                 <td><?= \App\Utils\Helper::h($s['created_at']) ?></td>
                 <td>
                     <form method="post" onsubmit="return confirm('Delete this subject?');">
+                        <?= \App\Utils\Helper::csrfField() ?>
                         <input type="hidden" name="delete_id" value="<?= (int)$s['id'] ?>">
-                        <button type="submit">Delete</button>
+                        <button type="submit" class="c-btn">Delete</button>
                     </form>
                 </td>
             </tr>
@@ -41,11 +42,14 @@
     </table>
 
     <h2>Add subject</h2>
-    <form method="post" class="form">
-        <label>
-            Subject name
-            <input type="text" name="name" placeholder="DSA, DBMS, OS..." required>
-        </label>
-        <button type="submit" name="add" value="1">Add subject</button>
+    <form method="post" class="c-form">
+        <?= \App\Utils\Helper::csrfField() ?>
+        <div class="c-form__group">
+            <label for="name" class="c-form__label">Subject name</label>
+            <input type="text" id="name" name="name" class="c-form__input" placeholder="DSA, DBMS, OS..." required aria-required="true" autocomplete="off">
+        </div>
+        <div class="c-form__actions">
+            <button type="submit" name="add" value="1" class="c-btn c-btn--primary">Add subject</button>
+        </div>
     </form>
 </section>

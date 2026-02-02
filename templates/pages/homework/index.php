@@ -1,18 +1,20 @@
 <section class="page">
     <h1>Homework</h1>
     <?php if ($user && $user['is_admin']): ?>
-        <p><a class="btn btn--small" href="<?= BASE_URL ?>/homework/new">Create homework</a></p>
+        <p><a class="c-btn c-btn--small" href="<?= BASE_URL ?>/homework/new">Create homework</a></p>
     <?php else: ?>
-        <p class="muted">Homework questions are visible to everyone. Only staff can post new ones.</p>
+        <p class="u-text-muted">Homework questions are visible to everyone. Only staff can post new ones.</p>
     <?php endif; ?>
 
     <?php if (!$grouped): ?>
-        <p class="muted">No homework assigned yet.</p>
+        <p class="u-text-muted">No homework assigned yet.</p>
     <?php else: ?>
         <?php foreach ($grouped as $subject => $items): ?>
-            <section class="card">
-                <h2><?= \App\Utils\Helper::h($subject) ?></h2>
-                <table class="changes-table">
+            <section class="c-card">
+                <header class="c-card__header">
+                    <h2 class="c-card__title"><?= \App\Utils\Helper::h($subject) ?></h2>
+                </header>
+                <table class="c-table">
                     <thead>
                         <tr>
                             <th>Title</th>
@@ -34,9 +36,9 @@
                                 <?php if ($hw['answer_path'] && (!$hw['due_date'] || $hw['due_date'] <= date('Y-m-d H:i:s'))): ?>
                                     <a href="<?= \App\Utils\Helper::h($hw['answer_path']) ?>" target="_blank">Download</a>
                                 <?php elseif ($hw['answer_path']): ?>
-                                    <span class="muted">Locked until due date</span>
+                                    <span class="u-text-muted">Locked until due date</span>
                                 <?php else: ?>
-                                    <span class="muted">Not available</span>
+                                    <span class="u-text-muted">Not available</span>
                                 <?php endif; ?>
                             </td>
                             <?php if ($user): ?>
@@ -44,11 +46,12 @@
                                     <?php if ($user['is_admin'] || (int)$user['id'] === (int)$hw['uploaded_by']): ?>
                                         <a href="<?= BASE_URL ?>/homework/edit?id=<?= (int)$hw['id'] ?>">Edit</a>
                                         <form method="post" action="<?= BASE_URL ?>/homework/delete" class="inline-form" style="display:inline;" onsubmit="return confirm('Delete this homework?');">
+                                            <?= \App\Utils\Helper::csrfField() ?>
                                             <input type="hidden" name="id" value="<?= (int)$hw['id'] ?>">
-                                            <button type="submit">Delete</button>
+                                            <button type="submit" class="c-btn">Delete</button>
                                         </form>
                                     <?php else: ?>
-                                        <span class="muted">—</span>
+                                        <span class="u-text-muted">—</span>
                                     <?php endif; ?>
                                 </td>
                             <?php endif; ?>

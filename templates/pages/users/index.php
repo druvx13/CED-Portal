@@ -2,7 +2,7 @@
     <h1>Users</h1>
 
     <?php if ($users): ?>
-        <table class="changes-table">
+        <table class="c-table">
             <thead>
                 <tr>
                     <th>Username</th>
@@ -37,6 +37,6 @@
             </nav>
         <?php endif; ?>
     <?php else: ?>
-        <p class="muted">No users yet.</p>
+        <p class="u-text-muted">No users yet.</p>
     <?php endif; ?>
 </section>

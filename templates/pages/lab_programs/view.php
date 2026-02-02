@@ -1,6 +1,6 @@
 <section class="page">
     <h1><?= \App\Utils\Helper::h($program['title']) ?></h1>
-    <p class="muted">
+    <p class="u-text-muted">
         Language: <?= \App\Utils\Helper::h($program['language_name']) ?> |
         By: <?= \App\Utils\Helper::h($program['username'] ?? 'Unknown') ?> |
         <?= \App\Utils\Helper::h($program['created_at']) ?>
@@ -11,8 +11,9 @@
             <a href="<?= BASE_URL ?>/lab-programs/edit?id=<?= (int)$program['id'] ?>">Edit</a>
             |
             <form method="post" action="<?= BASE_URL ?>/lab-programs/delete" class="inline-form" style="display:inline;" onsubmit="return confirm('Delete this program?');">
+                <?= \App\Utils\Helper::csrfField() ?>
                 <input type="hidden" name="id" value="<?= (int)$program['id'] ?>">
-                <button type="submit">Delete</button>
+                <button type="submit" class="c-btn">Delete</button>
             </form>
         </p>
     <?php endif; ?>
@@ -32,7 +33,7 @@
                 <?php endif; ?>
                 <p><a href="<?= \App\Utils\Helper::h($program['output_path']) ?>" target="_blank">Download output</a></p>
             <?php else: ?>
-                <p class="muted">No output uploaded.</p>
+                <p class="u-text-muted">No output uploaded.</p>
             <?php endif; ?>
         </div>
     </div>
