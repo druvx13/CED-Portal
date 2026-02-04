@@ -23,7 +23,7 @@
                 <?php else: ?>
                     <p class="muted">No upcoming reminders.</p>
                 <?php endif; ?>
-                <a class="btn btn--small" href="<?= BASE_URL ?>/reminders">Add reminder</a>
+                <a class="btn btn--small btn--primary" href="<?= BASE_URL ?>/reminders">Add reminder</a>
             </section>
         <?php endif; ?>
 
@@ -59,7 +59,7 @@
                 <p class="muted">No programs yet.</p>
             <?php endif; ?>
             <?php if ($user): ?>
-                <a class="btn btn--small" href="<?= BASE_URL ?>/lab-programs/new">Upload program</a>
+                <a class="btn btn--small btn--primary" href="<?= BASE_URL ?>/lab-programs/new">Upload program</a>
             <?php endif; ?>
         </section>
 
@@ -83,7 +83,7 @@
                 <p class="muted">No manuals yet.</p>
             <?php endif; ?>
             <?php if ($user): ?>
-                <a class="btn btn--small" href="<?= BASE_URL ?>/manuals/new">Upload manual</a>
+                <a class="btn btn--small btn--primary" href="<?= BASE_URL ?>/manuals/new">Upload manual</a>
             <?php endif; ?>
         </section>
     </div>

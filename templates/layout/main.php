@@ -11,11 +11,18 @@
     <script>document.addEventListener('DOMContentLoaded', () => { if (window.hljs) { hljs.highlightAll(); } });</script>
 </head>
 <body>
+<a href="#main-content" class="skip-to-main">Skip to main content</a>
 <header class="site-header">
     <div class="site-header__inner">
         <a href="<?= BASE_URL ?>/" class="logo">CED Portal</a>
 
-        <nav class="nav">
+        <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle navigation menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <nav class="nav" id="navMenu">
             <a href="<?= BASE_URL ?>/">Dashboard</a>
             <a href="<?= BASE_URL ?>/lab-programs">Lab Programs</a>
             <a href="<?= BASE_URL ?>/manuals">Lab Manuals</a>
@@ -46,7 +53,7 @@
         </div>
     </div>
 </header>
-<main class="site-main">
+<main class="site-main" id="main-content">
     <?= $content ?>
 </main>
 <footer class="site-footer">
