@@ -1,3 +1,8 @@
+<!--
+ * Copyright (C) 2026 NIKOL
+ * Licensed under LUCA Free License v1.0
+ * DO WHAT THE FUCK YOU WANT TO.
+-->
 <section class="page auth-page">
     <h1>Login</h1>
     <?php if (!empty($error)): ?>
