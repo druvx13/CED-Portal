@@ -1,3 +1,8 @@
+<!--
+ * Copyright (C) 2026 NIKOL
+ * Licensed under LUCA Free License v1.0
+ * DO WHAT THE FUCK YOU WANT TO.
+-->
 <section class="page dashboard">
     <h1>Dashboard</h1>
     <p class="muted">
