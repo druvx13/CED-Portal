@@ -642,6 +642,20 @@ a:focus {
     padding: 1rem;
     border: 1px solid var(--border);
 }
+.lab-program-code__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.75rem;
+}
+.lab-program-code__header h2 {
+    margin: 0;
+}
+.copy-code-btn.copied {
+    background: var(--success);
+    border-color: var(--success);
+    color: white;
+}
 .lab-program-code pre {
     border-radius: var(--radius);
     padding: 1rem;
