@@ -19,7 +19,10 @@
 
     <div class="lab-program-layout">
         <div class="lab-program-code">
-            <h2>Code</h2>
+            <div class="lab-program-code__header">
+                <h2>Code</h2>
+                <button class="btn btn--small copy-code-btn" type="button" aria-label="Copy code to clipboard">Copy</button>
+            </div>
             <pre><code class="hljs language-<?= \App\Utils\Helper::h($program['language_slug']) ?>"><?= \App\Utils\Helper::h($program['code']) ?></code></pre>
         </div>
         <div class="lab-program-output">
