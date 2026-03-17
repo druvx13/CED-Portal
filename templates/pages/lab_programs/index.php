@@ -9,10 +9,26 @@
     <?php if (!$grouped): ?>
         <p class="muted">No lab programs uploaded yet.</p>
     <?php else: ?>
+        <nav class="subject-nav" aria-label="Jump to subject">
+            <?php foreach ($grouped as $language => $programs): ?>
+                <a class="subject-nav__item" href="#subject-<?= htmlspecialchars(preg_replace('/\W+/', '-', strtolower($language)), ENT_QUOTES, 'UTF-8') ?>">
+                    <?= \App\Utils\Helper::h($language) ?>
+                    <span class="subject-nav__count"><?= count($programs) ?></span>
+                </a>
+            <?php endforeach; ?>
+        </nav>
+
         <?php foreach ($grouped as $language => $programs): ?>
-            <section class="card">
-                <h2><?= \App\Utils\Helper::h($language) ?></h2>
-                <ul>
+            <?php $anchor = preg_replace('/\W+/', '-', strtolower($language)); ?>
+            <section class="card subject-section" id="subject-<?= htmlspecialchars($anchor, ENT_QUOTES, 'UTF-8') ?>">
+                <div class="subject-section__header" role="button" tabindex="0" aria-expanded="true" aria-controls="subject-body-<?= htmlspecialchars($anchor, ENT_QUOTES, 'UTF-8') ?>">
+                    <h2><?= \App\Utils\Helper::h($language) ?></h2>
+                    <span class="subject-section__meta">
+                        <span class="badge"><?= count($programs) ?> program<?= count($programs) !== 1 ? 's' : '' ?></span>
+                        <span class="subject-section__toggle" aria-hidden="true">&#9650;</span>
+                    </span>
+                </div>
+                <ul id="subject-body-<?= htmlspecialchars($anchor, ENT_QUOTES, 'UTF-8') ?>">
                     <?php foreach ($programs as $p): ?>
                         <li>
                             <strong>
@@ -42,17 +58,5 @@
                 </ul>
             </section>
         <?php endforeach; ?>
-
-        <?php if ($totalPages > 1): ?>
-            <nav class="pagination">
-                <?php if ($page > 1): ?>
-                    <a href="<?= BASE_URL ?>/lab-programs?page=<?= $page - 1 ?>">&laquo; Prev</a>
-                <?php endif; ?>
-                <span>Page <?= $page ?> of <?= $totalPages ?></span>
-                <?php if ($page < $totalPages): ?>
-                    <a href="<?= BASE_URL ?>/lab-programs?page=<?= $page + 1 ?>">Next &raquo;</a>
-                <?php endif; ?>
-            </nav>
-        <?php endif; ?>
     <?php endif; ?>
 </section>

@@ -13,23 +13,10 @@ use finfo;
 
 class LabProgramController {
     public function index() {
-        $page = isset($_GET['page']) && (int)$_GET['page'] > 0 ? (int)$_GET['page'] : 1;
-        $perPage = 20;
-        $offset = ($page - 1) * $perPage;
-
-        $programs = LabProgram::all($perPage, $offset);
-        $total = LabProgram::count();
-        $totalPages = max(1, (int)ceil($total / $perPage));
-
-        $grouped = [];
-        foreach ($programs as $r) {
-            $grouped[$r['language_name']][] = $r;
-        }
+        $grouped = LabProgram::allGrouped();
 
         View::render('lab_programs/index', [
             'grouped' => $grouped,
-            'page' => $page,
-            'totalPages' => $totalPages,
             'user' => Auth::user(),
             'title' => 'Lab Programs'
         ]);

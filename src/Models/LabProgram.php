@@ -29,6 +29,31 @@ class LabProgram {
         return $stmt->fetchAll();
     }
 
+    public static function allGrouped(): array {
+        $pdo = Database::connect();
+        $stmt = $pdo->query("
+            SELECT
+                lp.id,
+                lp.title,
+                lp.code,
+                lp.created_at,
+                lp.uploaded_by,
+                u.username,
+                COALESCE(pl.name, lp.language) AS language_name,
+                COALESCE(pl.slug, lp.language) AS language_slug
+            FROM lab_programs lp
+            LEFT JOIN programming_languages pl ON lp.language_id = pl.id
+            LEFT JOIN users u ON lp.uploaded_by = u.id
+            ORDER BY language_name ASC, lp.created_at DESC
+        ");
+        $rows = $stmt->fetchAll();
+        $grouped = [];
+        foreach ($rows as $r) {
+            $grouped[$r['language_name']][] = $r;
+        }
+        return $grouped;
+    }
+
     public static function all($limit, $offset) {
         $pdo = Database::connect();
         $stmt = $pdo->prepare("

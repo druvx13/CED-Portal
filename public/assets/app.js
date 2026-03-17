@@ -43,6 +43,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // Subject section accordion (lab programs list)
+    document.querySelectorAll('.subject-section__header').forEach(header => {
+        const toggle = () => {
+            const section = header.closest('.subject-section');
+            const expanded = header.getAttribute('aria-expanded') !== 'false';
+            section.classList.toggle('collapsed', expanded);
+            header.setAttribute('aria-expanded', expanded ? 'false' : 'true');
+        };
+        header.addEventListener('click', toggle);
+        header.addEventListener('keydown', e => {
+            if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+        });
+    });
+
     // Copy code button
     document.querySelectorAll('.copy-code-btn').forEach(btn => {
         btn.addEventListener('click', () => {
