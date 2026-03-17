@@ -42,4 +42,27 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Copy code button
+    document.querySelectorAll('.copy-code-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const pre = btn.closest('.lab-program-code').querySelector('pre code');
+            if (!pre) return;
+            navigator.clipboard.writeText(pre.textContent).then(() => {
+                btn.textContent = 'Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.classList.remove('copied');
+                }, 2000);
+            }).catch(() => {
+                btn.textContent = 'Failed';
+                btn.setAttribute('aria-label', 'Copy failed');
+                setTimeout(() => {
+                    btn.textContent = 'Copy';
+                    btn.setAttribute('aria-label', 'Copy code to clipboard');
+                }, 2000);
+            });
+        });
+    });
 });

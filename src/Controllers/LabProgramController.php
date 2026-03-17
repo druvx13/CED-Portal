@@ -13,25 +13,40 @@ use finfo;
 
 class LabProgramController {
     public function index() {
-        $page = isset($_GET['page']) && (int)$_GET['page'] > 0 ? (int)$_GET['page'] : 1;
-        $perPage = 20;
-        $offset = ($page - 1) * $perPage;
-
-        $programs = LabProgram::all($perPage, $offset);
-        $total = LabProgram::count();
-        $totalPages = max(1, (int)ceil($total / $perPage));
-
-        $grouped = [];
-        foreach ($programs as $r) {
-            $grouped[$r['language_name']][] = $r;
-        }
+        $languages = LabProgram::languageSummary();
 
         View::render('lab_programs/index', [
-            'grouped' => $grouped,
-            'page' => $page,
-            'totalPages' => $totalPages,
+            'languages' => $languages,
             'user' => Auth::user(),
             'title' => 'Lab Programs'
+        ]);
+    }
+
+    public function subject() {
+        $slug = trim($_GET['slug'] ?? '');
+
+        if ($slug === '' || !preg_match('/^[a-z0-9][a-z0-9\-]*$/i', $slug)) {
+            Helper::redirect('/lab-programs');
+            return;
+        }
+
+        $programs = LabProgram::allByLanguageSlug($slug);
+
+        if (empty($programs)) {
+            http_response_code(404);
+            View::render('errors/404', ['title' => 'Subject Not Found']);
+            return;
+        }
+
+        $languageName = $programs[0]['language_name'];
+        $languageSlug = $programs[0]['language_slug'];
+
+        View::render('lab_programs/subject', [
+            'programs'     => $programs,
+            'languageName' => $languageName,
+            'languageSlug' => $languageSlug,
+            'user'         => Auth::user(),
+            'title'        => $languageName . ' Programs'
         ]);
     }
 

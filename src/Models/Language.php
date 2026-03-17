@@ -21,6 +21,13 @@ class Language {
         return $stmt->fetch();
     }
 
+    public static function findBySlug(string $slug) {
+        $pdo = Database::connect();
+        $stmt = $pdo->prepare("SELECT id, name, slug FROM programming_languages WHERE slug = ?");
+        $stmt->execute([$slug]);
+        return $stmt->fetch() ?: null;
+    }
+
     public static function create($name, $slug) {
         $pdo = Database::connect();
         $stmt = $pdo->prepare("

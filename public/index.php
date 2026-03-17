@@ -46,6 +46,7 @@ $router->get('/dashboard', ['App\Controllers\DashboardController', 'index']);
 
 // Lab Programs
 $router->get('/lab-programs', ['App\Controllers\LabProgramController', 'index']);
+$router->get('/lab-programs/subject', ['App\Controllers\LabProgramController', 'subject']);
 $router->get('/lab-programs/view', ['App\Controllers\LabProgramController', 'view']);
 $router->get('/lab-programs/new', ['App\Controllers\LabProgramController', 'new']);
 $router->post('/lab-programs/new', ['App\Controllers\LabProgramController', 'new']);
